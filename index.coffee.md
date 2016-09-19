@@ -90,7 +90,7 @@ Agressive merging
 Agressive merging will fill upper nodes in the tree with values percolating from deeper nodes.
 
         if agressive
-          cmp = (a,b) => @content[a].count - @content[b].count
+          cmp = (a,b) => @content[b].count - @content[a].count
           elected_value ?= @available_values().sort(cmp)[0]
 
 Transform S ::= {[value]:{count,children[c]: S}} into T ::= {value,children[c]: T}
