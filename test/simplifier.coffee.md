@@ -109,3 +109,18 @@
         I.should.have.property '4456', 'one'
         I.should.not.have.property '4765'
 
+      it 'should merge agressively', ->
+        s = new Simplifier true
+        s.insert '3', 'one'
+        s.insert '336677', 'two'
+        s.merge()
+        I = {}
+        s.output (k,v) ->
+          I[k] = v
+        I.should.have.property '', 'one'
+        I.should.not.have.property '3'
+        I.should.not.have.property '33'
+        I.should.not.have.property '336'
+        I.should.not.have.property '3366'
+        I.should.not.have.property '33667'
+        I.should.have.property '336677', 'two'

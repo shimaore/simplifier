@@ -80,13 +80,16 @@ Prune empty children
         else
           []
 
-      migrate: (parent_value) ->
+      migrate: (parent_value,agressive) ->
 
         elected_value = @value ? parent_value
 
-Elect a value if no default is present
+Agressive merging
+-----------------
 
-        if aggressive
+Agressive merging will fill upper nodes in the tree with values percolating from deeper nodes.
+
+        if agressive
           cmp = (a,b) => @content[a].count - @content[b].count
           elected_value ?= @available_values().sort(cmp)[0]
 
@@ -105,7 +108,7 @@ Transform S ::= {[value]:{count,children[c]: S}} into T ::= {value,children[c]: 
 
     module.exports = class Simplifier
 
-      constructor: ->
+      constructor: (@agressive) ->
         @root = new T()
 
       insert: (p,v) ->
@@ -121,11 +124,4 @@ Merge function, returns a suffix or infix and a new node or null;
 
       merge: ->
         @root.values()
-        @root = @root.migrate()
-
-Agressive merging
------------------
-
-Agressive merging will fill upper nodes in the tree with values percolating from deeper nodes.
-
-    aggressive = false
+        @root = @root.migrate null, @agressive
