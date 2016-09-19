@@ -91,7 +91,7 @@ Agressive merging will fill upper nodes in the tree with values percolating from
 
         if agressive
           cmp = (a,b) => @content[b].count - @content[a].count
-          elected_value ?= @available_values().sort(cmp)[0]
+          elected_value = @value ? @available_values().sort(cmp)[0]
 
 Transform S ::= {[value]:{count,children[c]: S}} into T ::= {value,children[c]: T}
 
@@ -102,7 +102,7 @@ Transform S ::= {[value]:{count,children[c]: S}} into T ::= {value,children[c]: 
 
         for v,s of @content when v isnt elected_value
           for c in s.chars
-            r.children[c] = @children[c].migrate elected_value
+            r.children[c] = @children[c].migrate elected_value, agressive
 
         return r
 

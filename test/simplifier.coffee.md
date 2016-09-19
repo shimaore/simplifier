@@ -111,16 +111,29 @@
 
       it 'should merge agressively', ->
         s = new Simplifier true
-        s.insert '3', 'one'
-        s.insert '336677', 'two'
+        s.insert '1201', 'one'
+        s.insert '1202', 'one'
+        s.insert '1203', 'one'
+        s.insert '1213', 'one'
+        s.insert '1256', 'one'
+        s.insert '1356', 'one'
+        s.insert '1782', 'one'
+        s.insert '1888', 'one'
+        s.insert '1999', 'two'
+        s.insert '33', 'three'
         s.merge()
         I = {}
         s.output (k,v) ->
           I[k] = v
         I.should.have.property '', 'one'
-        I.should.not.have.property '3'
+        I.should.have.property '19', 'two'
+        I.should.not.have.property '1201'
+        I.should.not.have.property '1202'
+        I.should.not.have.property '1203'
+        I.should.not.have.property '1213'
+        I.should.not.have.property '1256'
+        I.should.not.have.property '1356'
+        I.should.not.have.property '1782'
+        I.should.not.have.property '1888'
+        I.should.not.have.property '1999'
         I.should.not.have.property '33'
-        I.should.not.have.property '336'
-        I.should.not.have.property '3366'
-        I.should.not.have.property '33667'
-        I.should.have.property '336677', 'two'
