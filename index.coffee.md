@@ -82,6 +82,8 @@ Prune empty children
 
       migrate: (parent_value,agressive) ->
 
+        return @migrated if @migrated?
+
         elected_value = @value ? parent_value
 
 Agressive merging
@@ -103,6 +105,8 @@ Transform S ::= {[value]:{count,children[c]: S}} into T ::= {value,children[c]: 
         for v,s of @content when v isnt elected_value
           for c in s.chars
             r.children[c] = @children[c].migrate elected_value, agressive
+
+        @migrated = r
 
         return r
 
