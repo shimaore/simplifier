@@ -7,7 +7,7 @@ A tree is T ::= {value,children[c]: T}
 
         if p is ''
           if @value?
-            throw new SimplifierError "Duplicate prefix"
+            throw new Error "Duplicate prefix"
           @value = v
           return
 
